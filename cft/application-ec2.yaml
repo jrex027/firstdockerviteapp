@@ -1,0 +1,94 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: FirstDockViteApp Application EC2
+
+Parameters:
+
+  InstanceType:
+    Type: String
+    Default: t3.micro
+
+  AppPort:
+    Type: Number
+    Default: 80
+
+Resources:
+
+  ApplicationSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for FirstDockViteApp
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: firstdockerviteapp-sg
+
+  ApplicationRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: firstdockerviteapp-ec2-role
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+
+  ApplicationInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      InstanceProfileName: firstdockerviteapp-ec2-profile
+      Roles:
+        - !Ref ApplicationRole
+
+  ApplicationEC2:
+    Type: AWS::EC2::Instance
+    Properties:
+
+      InstanceType: !Ref InstanceType
+
+      ImageId: '{{resolve:ssm:/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64}}'
+
+      SecurityGroupIds:
+        - !Ref ApplicationSecurityGroup
+
+      IamInstanceProfile:
+        Ref: ApplicationInstanceProfile
+
+      Tags:
+        - Key: Name
+          Value: firstdockerviteapp-server
+
+        - Key: Application
+          Value: firstdockerviteapp
+
+        - Key: Environment
+          Value: dev
+
+Outputs:
+
+  InstanceId:
+    Description: Application EC2 Instance ID
+    Value: !Ref ApplicationEC2
+
+  PublicIP:
+    Description: Application EC2 Public IP
+    Value: !GetAtt ApplicationEC2.PublicIp
+
+  PrivateIP:
+    Description: Application EC2 Private IP
+    Value: !GetAtt ApplicationEC2.PrivateIp
+
+  SecurityGroupId:
+    Description: Application Security Group
+    Value: !Ref ApplicationSecurityGroup
