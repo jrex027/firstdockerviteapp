@@ -13,7 +13,7 @@
 
     - name: Install Docker
       ansible.builtin.package:
-        name: docker.io
+        name: docker
         state: present
 
     - name: Ensure Docker service is running
