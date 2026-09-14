@@ -12,6 +12,10 @@ Parameters:
     Type: Number
     Default: 80
 
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: Name of an existing EC2 KeyPair to enable SSH access
+
 Resources:
 
   ApplicationSecurityGroup:
@@ -20,8 +24,12 @@ Resources:
       GroupDescription: Security group for FirstDockViteApp
       SecurityGroupIngress:
         - IpProtocol: tcp
-          FromPort: 80
-          ToPort: 80
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: !Ref AppPort
+          ToPort: !Ref AppPort
           CidrIp: 0.0.0.0/0
       Tags:
         - Key: Name
@@ -56,6 +64,8 @@ Resources:
     Properties:
 
       InstanceType: !Ref InstanceType
+
+      KeyName: !Ref KeyName
 
       ImageId: '{{resolve:ssm:/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64}}'
 
