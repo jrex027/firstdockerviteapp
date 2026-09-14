@@ -620,3 +620,303 @@ footer div {
     margin: 0;
   }
 }
+
+/* Gallery market direction */
+:root {
+  --ink: #111827;
+  --muted: #667085;
+  --cream: #eef1f6;
+  --paper: #f8f9fb;
+  --line: #d7dce5;
+  --coral: #ff5c35;
+  --olive: #2756d8;
+  font-family: 'Avenir Next', 'Helvetica Neue', sans-serif;
+  background: var(--paper);
+}
+
+body {
+  background: var(--paper);
+}
+
+.announcement {
+  background: var(--coral);
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  padding: 11px 5%;
+}
+
+.announcement span,
+.wordmark span,
+.main-nav a:hover,
+footer a:hover,
+.text-link:hover,
+.text-link span,
+.favorite.saved {
+  color: var(--olive);
+}
+
+.site-header {
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  max-width: none;
+  padding: 20px max(24px, calc((100% - 1320px) / 2));
+}
+
+.wordmark {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -.08em;
+}
+
+.wordmark span {
+  font-size: 13px;
+  letter-spacing: -.04em;
+}
+
+.main-nav {
+  gap: 36px;
+  margin-left: 80px;
+}
+
+.main-nav a,
+footer a,
+.cart-button,
+.button,
+.text-link,
+.filter {
+  font-weight: 700;
+  letter-spacing: .12em;
+}
+
+.icon-button {
+  font-size: 21px;
+}
+
+.cart-button span {
+  background: var(--olive);
+  color: white;
+}
+
+.hero-section {
+  background: #dce5fb;
+  grid-template-columns: 46% 54%;
+  max-width: none;
+  min-height: 620px;
+}
+
+.hero-copy {
+  padding: 76px max(28px, calc((100vw - 1320px) / 2)) 76px max(28px, calc((100vw - 1320px) / 2));
+}
+
+.eyebrow {
+  color: var(--olive);
+  font-size: 10px;
+  letter-spacing: .2em;
+}
+
+h1,
+h2,
+.product-meta h3 {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: 800;
+  letter-spacing: -.075em;
+}
+
+h1 {
+  font-size: clamp(52px, 7vw, 105px);
+  line-height: .86;
+}
+
+h1 em,
+h2 em {
+  color: var(--olive);
+  font-style: normal;
+}
+
+.hero-description {
+  color: #45536b;
+  margin: 28px 0 34px;
+}
+
+.button {
+  padding: 17px 21px;
+}
+
+.button-dark {
+  background: var(--ink);
+}
+
+.hero-art {
+  background: var(--coral);
+  min-height: 620px;
+}
+
+.hero-art img {
+  mix-blend-mode: multiply;
+}
+
+.hero-note {
+  font-weight: 700;
+}
+
+.hero-stamp {
+  border-color: var(--ink);
+  border-radius: 0;
+  transform: rotate(8deg);
+}
+
+.ticker {
+  background: var(--olive);
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  padding: 19px 20px;
+  text-transform: uppercase;
+}
+
+.shop-section {
+  max-width: 1320px;
+  padding: 110px 40px 125px;
+}
+
+h2 {
+  font-size: clamp(42px, 5vw, 72px);
+  line-height: .9;
+}
+
+.filter-row {
+  gap: 28px;
+  margin-top: 60px;
+}
+
+.filter.active {
+  border-color: var(--olive);
+}
+
+.product-grid {
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.product-image {
+  background: #e5e9f0;
+  height: 390px;
+}
+
+.product-image img {
+  filter: saturate(.82);
+}
+
+.product-card:hover .product-image img {
+  filter: saturate(1);
+  transform: scale(1.06);
+}
+
+.product-tag {
+  background: var(--coral);
+  font-weight: 700;
+}
+
+.quick-add {
+  background: var(--olive);
+}
+
+.product-meta h3 {
+  font-size: 15px;
+  letter-spacing: -.03em;
+}
+
+.story-section {
+  background: var(--ink);
+  color: var(--paper);
+  max-width: none;
+}
+
+.story-image {
+  height: 610px;
+}
+
+.story-image img {
+  filter: grayscale(1) contrast(1.1);
+  mix-blend-mode: screen;
+  opacity: .78;
+}
+
+.story-copy {
+  max-width: 520px;
+  padding: 70px max(40px, calc((100vw - 1320px) / 2));
+}
+
+.story-copy .eyebrow {
+  color: var(--coral);
+}
+
+.story-copy p:not(.eyebrow) {
+  color: #b7c0d0;
+}
+
+.button-outline {
+  border-color: var(--paper);
+}
+
+.newsletter {
+  max-width: 1320px;
+  padding: 130px 40px;
+}
+
+.newsletter .eyebrow {
+  color: var(--coral);
+}
+
+.email-field {
+  border-color: var(--ink);
+}
+
+.form-message {
+  color: var(--olive);
+}
+
+footer {
+  background: var(--olive);
+  color: white;
+}
+
+footer p {
+  color: #dbe3ff;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-style: normal;
+}
+
+@media (max-width: 760px) {
+  .hero-section {
+    min-height: 0;
+  }
+
+  .hero-art {
+    min-height: 430px;
+  }
+
+  .hero-copy {
+    padding: 62px 24px 70px;
+  }
+
+  .shop-section {
+    padding: 78px 20px 86px;
+  }
+
+  .product-image {
+    height: 250px;
+  }
+
+  .story-image {
+    height: 400px;
+  }
+
+  .story-copy {
+    padding: 64px 24px 74px;
+  }
+}
