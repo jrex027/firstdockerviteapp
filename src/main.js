@@ -8,7 +8,7 @@ const products = [
 ]
 
 document.querySelector('#app').innerHTML = `
-  <div class="announcement">Complimentary shipping on orders over $75 <span>↗</span></div>
+  <div class="announcement">Test shipping on orders over $75 <span>↗</span></div>
   <header class="site-header">
     <a class="wordmark" href="#top" aria-label="Rex home">rex<span>co.</span></a>
     <nav class="main-nav" aria-label="Main navigation">
