@@ -3,10 +3,13 @@
   hosts: all
   become: true
   tasks:
-    - name: Wait for SSH connectivity
+    - name: Wait 3 minutes for SSH connection to become available
       ansible.builtin.wait_for_connection:
-        delay: 5
-        timeout: 300
+        delay: 10
+        timeout: 180
+
+    - name: Gather facts after SSH is ready
+      ansible.builtin.setup:
 
     - name: Install Docker
       ansible.builtin.package:
