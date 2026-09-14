@@ -1,31 +1,48 @@
 ---
-- name: Deploy FirstDockViteApp
-  hosts: application
+- name: Deploy Docker Application to EC2
+  hosts: all
   become: true
-
   tasks:
-
-    - name: Update packages
-      ansible.builtin.dnf:
-        name: "*"
-        state: latest
+    - name: Wait for SSH connectivity
+      ansible.builtin.wait_for_connection:
+        delay: 5
+        timeout: 300
 
     - name: Install Docker
-      ansible.builtin.dnf:
-        name: docker
+      ansible.builtin.package:
+        name: docker.io
         state: present
 
-    - name: Start Docker
-      ansible.builtin.systemd:
+    - name: Ensure Docker service is running
+      ansible.builtin.service:
         name: docker
         state: started
-        enabled: true
+        enabled: yes
 
-    - name: Verify Docker
+    - name: Copy Docker image tar archive to EC2
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/../{{ image_name }}.tar"
+        dest: "/tmp/{{ image_name }}.tar"
+
+    - name: Load Docker image
       ansible.builtin.command:
-        cmd: docker --version
-      register: docker_version
+        cmd: "docker load -i /tmp/{{ image_name }}.tar"
 
-    - name: Display Docker version
-      ansible.builtin.debug:
-        var: docker_version.stdout
+    - name: Stop existing application container (if running)
+      ansible.builtin.command:
+        cmd: "docker stop {{ container_name }}"
+      ignore_errors: true
+
+    - name: Remove existing application container
+      ansible.builtin.command:
+        cmd: "docker rm {{ container_name }}"
+      ignore_errors: true
+
+    - name: Run application container
+      ansible.builtin.command:
+        cmd: "docker run -d --name {{ container_name }} -p {{ app_port }}:{{ container_port }} {{ image_name }}:latest"
+
+    - name: Clean up remote image tarball
+      ansible.builtin.file:
+        path: "/tmp/{{ image_name }}.tar"
+        state: absent
